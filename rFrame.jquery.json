@@ -1,0 +1,38 @@
+{
+    "name": "rFrame",
+    "title": "rFrame",
+    "description": "A responsive frame to aid with mobile development",
+    "keywords": [
+        "responsive",
+        "design",
+        "web",
+        "rwd",
+        "iframe",
+        "rframe"
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Adam Merrifield",
+        "url": "https://github.com/seyDoggy/rFrame/blob/master/AUTHORS.txt"
+    },
+    "maintainers": [
+        {
+            "name": "Adam Merrifield",
+            "email": "macagp@gmail.com",
+            "url": "http://seydesign.com"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/seyDoggy/rFrame/blob/master/LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/seyDoggy/rFrame/issues",
+    "homepage": "https://github.com/seyDoggy/rFrame",
+    "docs": "https://github.com/seyDoggy/rFrame",
+    "download": "https://github.com/seyDoggy/rFrame/archive/master.zip",
+    "dependencies": {
+        "jquery": ">=1.8"
+    }
+}
