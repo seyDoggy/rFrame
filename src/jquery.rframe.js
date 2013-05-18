@@ -32,6 +32,7 @@
 			hash:window.location.hash,
 			reference:null,
 			wrapper:null,
+			selectmenu:null,
 			iFrame:null,
 			rFrame:null,
 			title:null,
@@ -46,6 +47,91 @@
 			 *	Set current href as reference for iFrame
 			 */
 			rframe.reference = $(location).attr('href');
+			/*
+			 * Utilize select menu
+			 */
+			rframe.selectmenu = $('<select id="device_select">' 
+  				+ '<option value="null">Select a device</option>' 
+  				+ '<option value="iPhone5">iPhone5 Portrait</option>' 
+  				+ '<option value="iPhone5 Landscape">iPhone5 Landscape</option>' 
+  				+ '<option value="iPhone4">iPhone4 Portrait</option>' 
+  				+ '<option value="iPhone4 Landscape">iPhone4 Landscape</option>' 
+  				+ '<option value="Android">Android Portrait</option>' 
+  				+ '<option value="Android Landscape">Android Landscape</option>' 
+  				+ '<option value="iPad">iPad Portrait</option>'
+  				+ '<option value="iPad Landscape">iPad Landscape</option>'
+  				+ '<option value="Kindle">Kindle Portrait</option>'
+  				+ '<option value="Kindle Landscape">Kindle Landscape</option>'
+  				+ '<option value="Off">Off</option>'
+				+ '</select>').css({
+					'margin':'10px 0 0 10px'
+				}).on('change',function () {
+					if ($(this).val() != 'null' && $(this).val() != 'Off') {
+						switch($(this).val()) {
+							case 'iPhone5':
+								rframe.device = 'iPhone5';
+								rframe.view = 'portrait';
+								break;
+							case 'iPhone5 Landscape':
+								rframe.device = 'iPhone5';
+								rframe.view = 'landscape';
+								break;
+							case 'iPhone4':
+								rframe.device = 'iPhone4';
+								rframe.view = 'portrait';
+								break;
+							case 'iPhone4 Landscape':
+								rframe.device = 'iPhone4';
+								rframe.view = 'landscape';
+								break;
+							case 'Android':
+								rframe.device = 'Android';
+								rframe.view = 'portrait';
+								break;
+							case 'Android Landscape':
+								rframe.device = 'Android';
+								rframe.view = 'landscape';
+								break;
+							case 'iPad':
+								rframe.device = 'iPad';
+								rframe.view = 'portrait';
+								break;
+							case 'iPad Landscape':
+								rframe.device = 'iPad';
+								rframe.view = 'landscape';
+								break;
+							case 'Kindle':
+								rframe.device = 'Kindle';
+								rframe.view = 'portrait';
+								break;
+							case 'Kindle Landscape':
+								rframe.device = 'Kindle';
+								rframe.view = 'landscape';
+								break;
+						}
+						window.location.hash = '';
+						$.ajax({
+						  url: "",
+						  context: document.body,
+						  success: function(s,x){
+						    $(this).html(s);
+						    $.rFrame({
+						    	device:rframe.device,
+								view:rframe.view
+						    });
+						  }
+						});
+					} else {
+						window.location.hash = '#rFrame';
+						$.ajax({
+						  url: "",
+						  context: document.body,
+						  success: function(s,x){
+						    $(this).html(s);
+						  }
+						});
+					}
+				});
 			/*
 			 * Set device settings
 			 */
@@ -137,11 +223,13 @@
 				+ ' (' + rframe.view + ')' 
 				+ ' — ' + rframe.width 
 				+ ' x ' + rframe.height 
-				+ '<br>Please note that this is only an approximations.'
 				+ '</div>'
 			).css({
 				'text-align':'center',
-			})
+			}).append(
+				rframe.selectmenu,
+				$('<p>Fork me on <a href="https://github.com/seyDoggy/rFrame" title="rFrame source code on github">github</a>.</p>')
+			);
 			/*
 			 * Smash the DOM elements together
 			 */
