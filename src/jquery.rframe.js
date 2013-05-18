@@ -122,14 +122,8 @@
 						  }
 						});
 					} else {
-						window.location.hash = '#rFrame';
-						$.ajax({
-						  url: "",
-						  context: document.body,
-						  success: function(s,x){
-						    $(this).html(s);
-						  }
-						});
+						window.location.hash = '';
+						window.location.reload();
 					}
 				});
 			/*
@@ -155,7 +149,7 @@
 						rframe.height = 685;
 						rframe.toppad = 80;
 						rframe.bottompad = 90;
-						rframe.radius = 120;
+						rframe.radius = 85;
 						break;
 
 					case 'Kindle':
