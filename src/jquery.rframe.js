@@ -18,11 +18,17 @@
 		 */
 		var rframe = $.extend({
 			background : '#dedede',
+			color : '#dedede',
+			toolbar_bg: '#333',
+			btn_bg: '#3e8ec0',
+			btn_color: '#fff',
+			font: 'Verdana',
 			device:'iPhone5',
 			device_color : '#d0d0d0',
+			view : 0,
+			forkme: true,
 			width : 320,
 			height : 568,
-			view : 'portrait',
 			topmargin:100,
 			rightsidepad:27,
 			leftsidepad:27,
@@ -30,12 +36,39 @@
 			bottompad:125,
 			radius:50,
 			hash:window.location.hash,
+			forkme_code: $('<a href="https://github.com/seyDoggy/rFrame" style="position: absolute; top: 0; right: 2em; border: 0;"><img style="border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>'),
 			reference:null,
 			wrapper:null,
-			selectmenu:null,
-			iFrame:null,
+			selectdevice:null,
+			selectview:null,
 			rFrame:null,
-			title:null,
+			toolbar:null,
+			iFrame:null,
+			rehash: function () {
+				window.location.hash = '';
+				$.ajax({
+					url: "",
+					context: document.body,
+					success: function(s,x){
+						$(this).html(s);
+						$.rFrame({
+							background:rframe.background,
+							color:rframe.color,
+							toolbar_bg:rframe.toolbar_bg,
+							btn_bg:rframe.btn_bg,
+							btn_color:rframe.btn_color,
+							font:rframe.font,
+							device:rframe.device,
+							device_color:rframe.device_color,
+							view:rframe.view,
+							forkme:rframe.forkme
+						});
+					}
+				});
+			},
+			setSelect: function () {
+				$('#rFrame option[value="' + rframe.device + '"]').attr('selected','selected');
+			}
 		}, options);
 
 		if (rframe.hash != "#rFrame") {
@@ -48,84 +81,65 @@
 			 */
 			rframe.reference = $(location).attr('href');
 			/*
-			 * Utilize select menu
+			 * Utilize select device menu
 			 */
-			rframe.selectmenu = $('<select id="device_select">' 
-  				+ '<option value="null">Select a device</option>' 
-  				+ '<option value="iPhone5">iPhone5 Portrait</option>' 
-  				+ '<option value="iPhone5 Landscape">iPhone5 Landscape</option>' 
-  				+ '<option value="iPhone4">iPhone4 Portrait</option>' 
-  				+ '<option value="iPhone4 Landscape">iPhone4 Landscape</option>' 
-  				+ '<option value="Android">Android Portrait</option>' 
-  				+ '<option value="Android Landscape">Android Landscape</option>' 
-  				+ '<option value="iPad">iPad Portrait</option>'
-  				+ '<option value="iPad Landscape">iPad Landscape</option>'
-  				+ '<option value="Kindle">Kindle Portrait</option>'
-  				+ '<option value="Kindle Landscape">Kindle Landscape</option>'
+			rframe.selectdevice = $('<select id="device_select">' 
+  				+ '<option value="iPhone5">iPhone5</option>' 
+  				+ '<option value="iPhone4">iPhone4</option>' 
+  				+ '<option value="Android">Android</option>' 
+  				+ '<option value="iPad">iPad</option>'
+  				+ '<option value="Kindle">Kindle</option>'
   				+ '<option value="Off">Off</option>'
-				+ '</select>').css({
-					'margin':'10px 0 0 10px'
-				}).on('change',function () {
+				+ '</select>').on('change',function () {
 					if ($(this).val() != 'null' && $(this).val() != 'Off') {
 						switch($(this).val()) {
 							case 'iPhone5':
 								rframe.device = 'iPhone5';
-								rframe.view = 'portrait';
-								break;
-							case 'iPhone5 Landscape':
-								rframe.device = 'iPhone5';
-								rframe.view = 'landscape';
 								break;
 							case 'iPhone4':
 								rframe.device = 'iPhone4';
-								rframe.view = 'portrait';
-								break;
-							case 'iPhone4 Landscape':
-								rframe.device = 'iPhone4';
-								rframe.view = 'landscape';
 								break;
 							case 'Android':
 								rframe.device = 'Android';
-								rframe.view = 'portrait';
-								break;
-							case 'Android Landscape':
-								rframe.device = 'Android';
-								rframe.view = 'landscape';
 								break;
 							case 'iPad':
 								rframe.device = 'iPad';
-								rframe.view = 'portrait';
-								break;
-							case 'iPad Landscape':
-								rframe.device = 'iPad';
-								rframe.view = 'landscape';
 								break;
 							case 'Kindle':
 								rframe.device = 'Kindle';
-								rframe.view = 'portrait';
-								break;
-							case 'Kindle Landscape':
-								rframe.device = 'Kindle';
-								rframe.view = 'landscape';
 								break;
 						}
-						window.location.hash = '';
-						$.ajax({
-						  url: "",
-						  context: document.body,
-						  success: function(s,x){
-						    $(this).html(s);
-						    $.rFrame({
-						    	device:rframe.device,
-								view:rframe.view
-						    });
-						  }
-						});
+						rframe.rehash();
 					} else {
-						window.location.hash = '';
+						window.location.hash = 'rFrame';
 						window.location.reload();
 					}
 				});
+			/*
+			 * Utilize select device menu
+			 */
+			rframe.selectview = $('<a href="#" title="Select the device orientation."/>').text(function () {
+				if (rframe.view == 0) {
+					$(this).html('Portrait');
+				} else {
+					$(this).html('Landscape');
+				}
+			}).css({
+				'text-decoration':'none',
+				'background-color':rframe.btn_bg,
+				'color':rframe.btn_color,
+				'padding':'0.5em 1em',
+				'margin-left':'2em'
+			}).on('click', function (event) {
+				event.preventDefault();
+				if (rframe.view == 0) {
+					rframe.view = 1;
+					rframe.rehash();
+				} else {
+					rframe.view = 0;
+					rframe.rehash();
+				}
+			});
 			/*
 			 * Set device settings
 			 */
@@ -166,7 +180,7 @@
 			/*
 			 * Set device orientation
 			 */
-			if (rframe.view == 'landscape') {
+			if (rframe.view == 1) {
 				var temp = rframe.width;
 				rframe.width = rframe.height;
 				rframe.height = temp;
@@ -182,7 +196,7 @@
 			 * Set device position
 			 */
 			if ((rframe.height + rframe.toppad + rframe.bottompad) < $(window).height()) {
-				rframe.topmargin = ($(window).height() - (rframe.height + rframe.toppad + rframe.bottompad))/2
+				rframe.topmargin = (($(window).height() - (rframe.height + rframe.toppad + rframe.bottompad))/2) + 25;
 			}
 			/*
 			 * Create rFrame wrapper overlay 
@@ -201,37 +215,39 @@
 			 */
 			rframe.iFrame = $('<iframe src="' + rframe.reference + '"/>').css({
 				'background-color':rframe.device_color,
+				'border':'none',
 				'border-radius': rframe.radius + 'px',
 				'display': 'block',
 				'height':rframe.height,
-				'margin': rframe.topmargin + 'px auto 20px',
+				'margin': rframe.topmargin + 'px auto 0',
 				'padding': rframe.toppad + 'px ' + rframe.rightsidepad + 'px ' + rframe.bottompad + 'px '+ rframe.leftsidepad + 'px',
 				'width':rframe.width,
 			});
 			/*
-			 * Create the title
+			 * Create toolbar
 			 */
-			rframe.title = $(
-				'<div>' 
-				+ rframe.device 
-				+ ' (' + rframe.view + ')' 
-				+ ' — ' + rframe.width 
-				+ ' x ' + rframe.height 
-				+ '</div>'
-			).css({
-				'text-align':'center',
+			rframe.toolbar = $('<div id="rFrame-toolbar"/>').css({
+				'padding':'1em',
+				'position':'fixed',
+				'color':rframe.color,
+				'font-family': rframe.font,
+				'background-color':rframe.toolbar_bg,
+				'z-index':'1000000',
+				'width':'100%'
 			}).append(
-				rframe.selectmenu,
-				$('<p>Fork me on <a href="https://github.com/seyDoggy/rFrame" title="rFrame source code on github">github</a>.</p>')
+				rframe.forkme == true ? rframe.forkme_code : '',
+				rframe.selectdevice,
+				rframe.selectview
 			);
 			/*
 			 * Smash the DOM elements together
 			 */
-			rframe.rFrame = rframe.wrapper.append(rframe.iFrame,rframe.title);
+			rframe.rFrame = rframe.wrapper.append(rframe.toolbar,rframe.iFrame);
 			/* 
 			 * Implement
 			 */ 
 			$('body').append(rframe.rFrame);
+			rframe.setSelect();
 		}
 	};
 })(jQuery);
