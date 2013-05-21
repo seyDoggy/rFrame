@@ -9,7 +9,7 @@ It's pretty crude right now and only works in Chrome and Safari for the time bei
 
 ### Demo
 
-<http://seydoggy.github.io/demo/rFrame/>
+<http://seydoggy.github.io/rFrame/>
 
 ### Instructions (General)
 
