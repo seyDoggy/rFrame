@@ -1,9 +1,15 @@
 # rFrame
 ## A responsive frame emulator to aid with mobile development
 
-There are so many [neat][viewport resizer] [responsive][Responsinator] [viewport][Ripple] tools out there. Firefox even has a nifty little development feature called "Responsive Design Mode". But being as I do a lot of work inside RapidWeaver, which uses webkit, I have no way (that I know of) to take advantage of any of these solutions outside of anything other then a full blown browser window. So on a sunny afternoon I hacked together rFrame, a self reflecting jQuery function that emulates the view port sizes of a handful (for now) of devices to give you a rough idea of how your web site/application might look on that device.
+There are so many [neat][viewport resizer] [responsive][Responsinator] [viewport][Ripple] tools out there. Firefox even has a nifty little development feature called "Responsive Design Mode". But being as I do a lot of work inside RapidWeaver, which uses webkit, I have no way (that I know of) to take advantage of any of these solutions outside of anything other then a full blown browser window.
+
+So on a sunny afternoon I hacked together rFrame, a self reflecting jQuery function that emulates the view port sizes of a handful (for now) of devices to give you a rough idea of how your web site/application might look on that device.
 
 It's pretty crude right now and only works in Chrome and Safari for the time being, so fork it and make it better.
+
+### Demo
+
+<http://seydoggy.github.io/demo/rFrame/>
 
 ### Instructions (General)
 
