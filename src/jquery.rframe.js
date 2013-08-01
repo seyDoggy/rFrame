@@ -10,7 +10,7 @@
 	'use strict';
 
 	var pluginName = 'rFrame',
-		pluginVersion = '0.0.1';
+		pluginVersion = '0.0.2';
 
 	$.rFrame = function(options) {
 		/*
