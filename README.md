@@ -14,7 +14,7 @@ It's pretty crude right now and only works in Chrome and Safari for the time bei
 ### Installation
 
 1. [Download](https://github.com/seyDoggy/rFrame/archive/master.zip) the latest release.
-1. Clone the repo: git clone git://github.com/seyDoggy/rFrame.git
+1. Clone the repo: `git clone git://github.com/seyDoggy/rFrame.git`
 1. Install with [Bower](http://bower.io/): `bower install rFrame`
 
 ### Instructions (General)
