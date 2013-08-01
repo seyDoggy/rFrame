@@ -1,12 +1,11 @@
 {
   "name": "rFrame",
   "version": "0.0.1",
-  "main": "src/jquery.rframe.js",
+  "main": "./src/jquery.rframe.js",
   "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ]
+    "**/.*"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.8.0"
+  }
 }
