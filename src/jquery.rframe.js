@@ -10,7 +10,7 @@
 	'use strict';
 
 	var pluginName = 'rFrame',
-		pluginVersion = '0.0.2';
+		pluginVersion = '0.0.3';
 
 	$.rFrame = function(options) {
 		/*
@@ -246,7 +246,7 @@
 			/* 
 			 * Implement
 			 */ 
-			$('body').append(rframe.rFrame);
+			$('body').html(rframe.rFrame);
 			rframe.setSelect();
 		}
 	};
